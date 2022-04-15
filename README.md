@@ -11,3 +11,10 @@ To download these script within the mtuq folder, run the following commands:
 
 	cd ~/scoped/mtuq
 	git clone https://github.com/thurinj/mtuq_workshop_2022.git
+
+## FK model files
+We have also included 2 model files in order to generate FK databases. They contain the subsurface parameters used to compute custom green's function databases used in MTUQ. You can find them here:
+- [scak](https://github.com/thurinj/mtuq_workshop_2022/blob/main/scak)
+- [socal](https://github.com/thurinj/mtuq_workshop_2022/blob/main/scak)
+
+Feel free to open them to have a look at the model parameters.
