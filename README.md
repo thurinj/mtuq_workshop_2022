@@ -18,3 +18,11 @@ We have also included 2 model files in order to generate FK databases. They cont
 - [socal](https://github.com/thurinj/mtuq_workshop_2022/blob/main/scak)
 
 Feel free to open them to have a look at the model parameters.
+
+## Green's function by using FK
+Using 1D models (hk, scak, socal) to generate Greens function
+```shell
+python create_FK_greens_hk.py
+python create_FK_greens_scak.py
+python create_FK_greens_socal.py 
+```
