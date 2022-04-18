@@ -23,6 +23,7 @@ def create_FK_greens():
         })
 
     # set model parameters.
+    fk_command    = 'fk.pl'
     model_name    = 'scak'
     model_type    = 'f'
     npts          = 512
@@ -46,7 +47,7 @@ def create_FK_greens():
         sr_dist.append(np.ceil(sta.sac.dist))
 
     for s_type in src_type:
-        cmd_str = "fk.pl -M%s/%d/%s -N%d/%.4f -S%s " % (model_name, src_depth, model_type, npts, dt, s_type)
+        cmd_str = "%s -M%s/%d/%s -N%d/%.4f -S%s " % (fk_command, model_name, src_depth, model_type, npts, dt, s_type)
         # if source-receiver distance is degree, otherwise is km.
         if is_sr_dist_degree:
             cmd_str += '-D '
