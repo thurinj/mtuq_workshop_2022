@@ -62,4 +62,3 @@ if __name__=='__main__':
     create_FK_greens()
 
 
-# python ./create_fk_greens_socal.py
