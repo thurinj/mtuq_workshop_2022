@@ -24,8 +24,8 @@ if __name__=='__main__':
     #
 
 
-    path_data=    fullpath('pysep/20170903033001760/*.[zrt]')
-    path_weights= fullpath('pysep/20170903033001760/weights.dat')
+    path_data=    fullpath('/home/jovyan/scoped/pysep/20170903033001760/*.[zrt]')
+    path_weights= fullpath('/home/jovyan/scoped/pysep/20170903033001760/weights.dat')
     event_id=     '20170903033001760'
     model=        'ak135'
 
