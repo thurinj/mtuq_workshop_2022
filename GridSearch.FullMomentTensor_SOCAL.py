@@ -24,8 +24,8 @@ if __name__=='__main__':
     #
 
 
-    path_data=    fullpath('pysep/20200404015318920/*.[zrt]')
-    path_weights= fullpath('pysep/20200404015318920/weights.dat')
+    path_data=    fullpath('../pysep/20200404015318920/*.[zrt]')
+    path_weights= fullpath('../pysep/20200404015318920/weights.dat')
     event_id=     '20200404015318920'
     model=        'ak135'
 
