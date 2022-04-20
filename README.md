@@ -6,12 +6,6 @@ Here you will find some useful template scripts to invert the moment tensor for 
 - 2017 North Korean nuclear test -  [GridSearch.FullMomentTensor_NK.py](https://github.com/thurinj/mtuq_workshop_2022/blob/main/GridSearch.FullMomentTensor_NK.py)
 - 2020 South-California earthquake -  [GridSearch.FullMomentTensor_SOCAL.py](https://github.com/thurinj/mtuq_workshop_2022/blob/main/GridSearch.FullMomentTensor_SOCAL.py)
 
-## Download
-To download these script within the mtuq folder, run the following commands:
-
-	cd ~/scoped/mtuq
-	git clone https://github.com/thurinj/mtuq_workshop_2022.git
-
 ## FK model files
 We have also included 2 model files in order to generate FK databases. They contain the subsurface parameters used to compute custom green's function databases used in MTUQ. You can find them here:
 - [scak](https://github.com/thurinj/mtuq_workshop_2022/blob/main/scak)
