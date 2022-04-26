@@ -10,9 +10,9 @@ from mtuq.util.cap import parse_station_codes
 def create_FK_greens():
     '''Create Greens' function associated with data by using FK. '''
 
-    path_data = fullpath('data/examples/20090407201255351/*.[zrt]')
-    path_weights = fullpath('data/examples/20090407201255351/weights.dat')
-    event_id = '20090407201255351'
+    path_data = fullpath('/home/jovyan/scoped/pysep/20200404015318920/*.[zrt]')
+    path_weights = fullpath('/home/jovyan/scoped/pysep/20200404015318920/weights.dat')
+    event_id = '20200404015318920'
 
     # user specified searching depth in km
     # searching_depths = np.array([5, 11, 18])       # eg: at 5, 11, 18 km.
