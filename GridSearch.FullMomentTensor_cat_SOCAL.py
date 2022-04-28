@@ -17,17 +17,19 @@ from mtuq.util.cap import parse_station_codes, Trapezoid
 
 if __name__=='__main__':
     #
-    # Carries out grid search over all moment tensor parameters
+    # Carries out grid search over all moment tensor parameters for the catalog depth and magnitude of the 2020-04-04 SoCal event
+    # Uses local database of Green's functions calculated via the FK method
     #
     # USAGE
-    #   mpirun -n <NPROC> python GridSearch.FullMomentTensor.py
+    #   mpirun -n <NPROC> python GridSearch.FullMomentTensor_cat_SOCAL.py
     #
 
 
     path_data=    fullpath('/home/jovyan/scoped/pysep/20200404015318920/*.[zrt]')
     path_weights= fullpath('/home/jovyan/scoped/pysep/20200404015318920/weights.dat')
     event_id=     '20200404015318920'
-    model=        'ak135'
+    model=        'socal'
+    db = open_db('/home/jovyan/scoped/mtuq_workshop_2022/greens/socal',format='FK')
 
 
     #
@@ -36,10 +38,10 @@ if __name__=='__main__':
 
     process_bw = ProcessData(
         filter_type='Bandpass',
-        freq_min= 0.1,
-        freq_max= 0.333,
-        pick_type='taup',
-        taup_model=model,
+        freq_min= 0.20,
+        freq_max= 0.6667,
+        pick_type='FK_metadata',
+        FK_database='/home/jovyan/scoped/mtuq_workshop_2022/greens/socal',
         window_type='body_wave',
         window_length=15.,
         capuaf_file=path_weights,
@@ -47,12 +49,12 @@ if __name__=='__main__':
 
     process_sw = ProcessData(
         filter_type='Bandpass',
-        freq_min=1/40,
-        freq_max=1/16,
-        pick_type='taup',
-        taup_model=model,
+        freq_min=0.0333,
+        freq_max=0.0625,
+        pick_type='FK_metadata',
+        FK_database='/home/jovyan/scoped/mtuq_workshop_2022/greens/socal',
         window_type='surface_wave',
-        window_length=250.,
+        window_length=120.,
         capuaf_file=path_weights,
         )
 
@@ -90,7 +92,7 @@ if __name__=='__main__':
     #
 
     grid = FullMomentTensorGridSemiregular(
-        npts_per_axis=10,
+        npts_per_axis=15,
         magnitudes=[4.9])
 
     wavelet = Trapezoid(
@@ -139,7 +141,7 @@ if __name__=='__main__':
 
 
         print('Reading Greens functions...\n')
-        greens = download_greens_tensors(stations, origin, model)
+        greens = db.get_greens_tensors(stations,origin)
 
         print('Processing Greens functions...\n')
         greens.convolve(wavelet)
@@ -183,7 +185,6 @@ if __name__=='__main__':
     if comm.rank==0:
 
         results = results_bw + results_sw
-        results = results_sw
 
         # array index corresponding to minimum misfit
         idx = results.idxmin('source')
@@ -199,18 +200,18 @@ if __name__=='__main__':
 
         print('Generating figures...\n')
 
-        plot_data_greens2(event_id+'FMT_waveforms.png',
+        plot_data_greens2(event_id+'FMT_cat_waveforms.png',
             data_bw, data_sw, greens_bw, greens_sw, process_bw, process_sw,
             misfit_bw, misfit_sw, stations, origin, best_source, lune_dict)
 
 
-        plot_beachball(event_id+'FMT_beachball.png',
+        plot_beachball(event_id+'FMT_cat_beachball.png',
             best_source, stations, origin)
 
 
-        plot_misfit_lune(event_id+'FMT_misfit.png', results)
-        plot_misfit_lune(event_id+'FMT_misfit_mt.png', results, show_mt=True)
-        plot_misfit_lune(event_id+'FMT_misfit_tradeoff.png', results, show_tradeoffs=True)
+        plot_misfit_lune(event_id+'FMT_cat_misfit.png', results)
+        plot_misfit_lune(event_id+'FMT_cat_misfit_mt.png', results, show_mt=True)
+        plot_misfit_lune(event_id+'FMT_cat_misfit_tradeoff.png', results, show_tradeoffs=True)
 
         print('Saving results...\n')
 
@@ -219,11 +220,11 @@ if __name__=='__main__':
 
 
         # save best-fitting source
-        save_json(event_id+'FMT_solution.json', merged_dict)
+        save_json(event_id+'FMT_cat_solution.json', merged_dict)
 
 
         # save misfit surface
-        results.save(event_id+'FMT_misfit.nc')
+        results.save(event_id+'FMT_cat_misfit.nc')
 
 
         print('\nFinished\n')
