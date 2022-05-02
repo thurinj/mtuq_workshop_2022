@@ -116,6 +116,7 @@ if __name__=='__main__':
 
 
     depths = [8000.,9000.,10000.,11000.,12000.]
+    origins = []
     for depth in depths:
         origins += [origin.copy()]
         setattr(origins[-1], 'depth_in_m', depth)
