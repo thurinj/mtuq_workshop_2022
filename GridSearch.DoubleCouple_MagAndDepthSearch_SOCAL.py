@@ -91,7 +91,7 @@ if __name__=='__main__':
     # Next, we specify the moment tensor grid and source-time function
     #
 
-    grid = DoubleCoupleRegular(
+    grid = DoubleCoupleGridRegular(
         npts_per_axis=30,
         magnitudes=[4.8,4.9,5.0])
 
