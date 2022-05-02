@@ -48,8 +48,8 @@ if __name__=='__main__':
     # Uncomment this section to see the effect of cycle skipping!
     # process_sw = ProcessData(
     #     filter_type='Bandpass',
-    #     freq_min=1/70,
-    #     freq_max=1/30,
+    #     freq_min=1/50,
+    #     freq_max=1/16,
     #     pick_type='taup',
     #     taup_model=model,
     #     window_type='surface_wave',
