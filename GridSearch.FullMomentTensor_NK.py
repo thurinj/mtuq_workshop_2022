@@ -34,17 +34,6 @@ if __name__=='__main__':
     # Body and surface wave measurements will be made separately
     #
 
-    process_bw = ProcessData(
-        filter_type='Bandpass',
-        freq_min= 0.1,
-        freq_max= 0.25,
-        pick_type='taup',
-        taup_model=model,
-        window_type='body_wave',
-        window_length=35.,
-        capuaf_file=path_weights,
-        )
-
     process_sw = ProcessData(
         filter_type='Bandpass',
         freq_min=1/70,
@@ -55,19 +44,24 @@ if __name__=='__main__':
         window_length=300.,
         capuaf_file=path_weights,
         )
+    
+    # Uncomment this section to see the effect of cycle skipping!
+    # process_sw = ProcessData(
+    #     filter_type='Bandpass',
+    #     freq_min=1/70,
+    #     freq_max=1/30,
+    #     pick_type='taup',
+    #     taup_model=model,
+    #     window_type='surface_wave',
+    #     window_length=300.,
+    #     capuaf_file=path_weights,
+    #     )
 
 
     #
     # For our objective function, we will use a sum of body and surface wave
     # contributions
     #
-
-    misfit_bw = Misfit(
-        norm='L2',
-        time_shift_min=-5.,
-        time_shift_max=+5.,
-        time_shift_groups=['ZR'],
-        )
 
     misfit_sw = Misfit(
         norm='L2',
@@ -92,6 +86,9 @@ if __name__=='__main__':
     grid = FullMomentTensorGridSemiregular(
         npts_per_axis=10,
         magnitudes=[5.18])
+
+    # Alternative vizualisation grid, with fixed gamma-delta coordinates.
+    # 'npts_per_axis' only controls number of orientations (strike, dip and slip angles)
     # grid = FullMomentTensorPlottingGrid(
     #     npts_per_axis=40,
         # magnitudes=[5.18])
@@ -137,7 +134,6 @@ if __name__=='__main__':
 
 
         print('Processing data...\n')
-        data_bw = data.map(process_bw)
         data_sw = data.map(process_sw)
 
 
@@ -146,22 +142,17 @@ if __name__=='__main__':
 
         print('Processing Greens functions...\n')
         greens.convolve(wavelet)
-        greens_bw = greens.map(process_bw)
         greens_sw = greens.map(process_sw)
 
 
     else:
         stations = None
-        data_bw = None
         data_sw = None
-        greens_bw = None
         greens_sw = None
 
 
     stations = comm.bcast(stations, root=0)
-    data_bw = comm.bcast(data_bw, root=0)
     data_sw = comm.bcast(data_sw, root=0)
-    greens_bw = comm.bcast(greens_bw, root=0)
     greens_sw = comm.bcast(greens_sw, root=0)
 
 
@@ -174,8 +165,7 @@ if __name__=='__main__':
 
     results_sw = grid_search(
         data_sw, greens_sw, misfit_sw, origin, grid)
-
-
+    
 
     if comm.rank==0:
 
