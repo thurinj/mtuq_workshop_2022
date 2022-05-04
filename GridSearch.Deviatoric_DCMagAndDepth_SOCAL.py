@@ -200,18 +200,18 @@ if __name__=='__main__':
 
         print('Generating figures...\n')
 
-        plot_data_greens2(event_id+'FMT_DCMagAndDepth_waveforms.png',
+        plot_data_greens2(event_id+'DEV_DCMagAndDepth_waveforms.png',
             data_bw, data_sw, greens_bw, greens_sw, process_bw, process_sw,
             misfit_bw, misfit_sw, stations, origin, best_source, lune_dict)
 
 
-        plot_beachball(event_id+'FMT_DCMagAndDepth_beachball.png',
+        plot_beachball(event_id+'DEV_DCMagAndDepth_beachball.png',
             best_source, stations, origin)
 
 
-        plot_misfit_lune(event_id+'FMT_DCMagAndDepth_misfit.png', results)
-        plot_misfit_lune(event_id+'FMT_DCMagAndDepth_misfit_mt.png', results, show_mt=True)
-        plot_misfit_lune(event_id+'FMT_DCMagAndDepth_misfit_tradeoff.png', results, show_tradeoffs=True)
+        plot_misfit_lune(event_id+'DEV_DCMagAndDepth_misfit.png', results)
+        plot_misfit_lune(event_id+'DEV_DCMagAndDepth_misfit_mt.png', results, show_mt=True)
+        plot_misfit_lune(event_id+'DEV_DCMagAndDepth_misfit_tradeoff.png', results, show_tradeoffs=True)
 
         print('Saving results...\n')
 
@@ -220,11 +220,11 @@ if __name__=='__main__':
 
 
         # save best-fitting source
-        save_json(event_id+'FMT_DCMagAndDepth_solution.json', merged_dict)
+        save_json(event_id+'DEV_DCMagAndDepth_solution.json', merged_dict)
 
 
         # save misfit surface
-        results.save(event_id+'FMT_DCMagAndDepth_misfit.nc')
+        results.save(event_id+'DEV_DCMagAndDepth_misfit.nc')
 
 
         print('\nFinished\n')
