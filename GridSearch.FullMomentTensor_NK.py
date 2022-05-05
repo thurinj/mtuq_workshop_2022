@@ -99,7 +99,8 @@ if __name__=='__main__':
 
     #
     # Origin time and location will be fixed. For an example in which they
-    # vary, see examples/GridSearch.DoubleCouple+Magnitude+Depth.py
+    # vary, see /home/jovyan/scoped/mtuq/examples/GridSearch.DoubleCouple+Magnitude+Depth.py
+    
     #
     # See also Dataset.get_origins(), which attempts to create Origin objects
     # from waveform metadata
