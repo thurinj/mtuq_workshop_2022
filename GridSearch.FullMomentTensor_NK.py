@@ -6,7 +6,7 @@ import numpy as np
 from mtuq import read, open_db, download_greens_tensors
 from mtuq.event import Origin
 from mtuq.graphics import plot_data_greens1, plot_beachball, plot_misfit_lune
-from mtuq.grid import FullMomentTensorGridSemiregular, FullMomentTensorPlottingGrid
+from mtuq.grid import FullMomentTensorGridSemiregular
 from mtuq.grid_search import grid_search
 from mtuq.misfit import Misfit
 from mtuq.process_data import ProcessData
@@ -87,11 +87,6 @@ if __name__=='__main__':
         npts_per_axis=10,
         magnitudes=[5.18])
 
-    # Alternative vizualisation grid, with fixed gamma-delta coordinates.
-    # 'npts_per_axis' only controls number of orientations (strike, dip and slip angles)
-    # grid = FullMomentTensorPlottingGrid(
-    #     npts_per_axis=40,
-        # magnitudes=[5.18])
 
     wavelet = Trapezoid(
         magnitude=5.18)
